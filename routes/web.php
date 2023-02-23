@@ -28,13 +28,13 @@ use Illuminate\Support\Facades\URL;
 Route::get('/', [App\Http\Controllers\Admin\LoginController::class, 'loginForm'])->name('admin.signin')->middleware('guest:admin');
 Route::post('/', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login')->middleware('guest:admin');
 Route::group(['prefix' => 'admin'], function () {
-Route::group(['middleware' => ['admin']], function () {
+// Route::group(['middleware' => ['auth']], function () {
         Route::view('/pages/datatables', 'pages.datatables');
         Route::view('/', 'dashboard')->name('admin.dashboard');
         Route::resource('/testomonial', App\Http\Controllers\Admin\TestomonialController::class);
-        Route::resource('/teams', App\Http\Controllers\Admin\TeamsController::class);
+        Route::resource('/team', App\Http\Controllers\Admin\TeamsController::class);
         Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
         Route::resource('participant', ParticipantController::class);
-    });
+    // });
 });
 

@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TeamRequest;
 use App\Http\Requests\TestomonialRequest;
-use App\Models\Team;
 use App\Models\Testomonial;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class TeamsController extends Controller
+class TestomonialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,12 +19,12 @@ class TeamsController extends Controller
     {
 
         if ($request->expectsJson()) {
-            $data =  Team::latest()->get();
+            $data =  Testomonial::latest()->get();
             return Datatables::of($data)
                 ->addColumn('name', function ($row) {
                     return "<p>{$row['name']}</p>";
-                })->addColumn('image', function ($row) {
-                    return "<p>{$row['image']}</p>";
+                })->addColumn('company', function ($row) {
+                    return "<p>{$row['company']}</p>";
                 })->addColumn('designation', function ($row) {
                     return "<p>{$row['designation']}</p>";
                 })
@@ -40,24 +38,22 @@ class TeamsController extends Controller
                     $btn .= '</div>';
                     return $btn;
                 })
-                ->rawColumns(['name', 'image', 'description', 'designation', 'action'])
+                ->rawColumns(['name', 'company', 'description', 'designation', 'action'])
                 ->make(true);
         } else {
-            return view('admin.team.index');
+            return view('admin.testomonial.index');
         }
         
     }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-     public function create()  
-     {
-         return view('admin.team.create');   
-     }
+    public function create()  
+    {
+        return view('admin.testomonial.create');   
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -65,7 +61,7 @@ class TeamsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TeamRequest $request) 
+    public function store(TestomonialRequest $request) 
     {
         $validated = $request->validated();
         if($request->image){
@@ -75,11 +71,11 @@ class TeamsController extends Controller
             $image->move($destinationPath, $name);
             $validated['image'] = $name;
         }
-        $status = Team::create($validated);
+        $status = Testomonial::create($validated);
         if(!$status){
             return back()->with('error', 'Something went wrong, please try again');
         }
-        return back()->with('success', 'Team created successfully');
+        return back()->with('success', 'Testomonial created successfully');
         //
     }
 
