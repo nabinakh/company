@@ -1,0 +1,20 @@
+.form-label {
+    vertical-align: sub;
+}
+
+.logs-table {
+     width: 100% !important;
+    overflow-x: auto;
+    display: block;
+    white-space: nowrap;
+    }
+
+.dataTables_filter {
+    float: right !important;
+ }
+
+
+ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before {
+    top: 20px;
+}
+ 

@@ -1,0 +1,9 @@
+{
+    "/js/laravel.app.js": "/js/laravel.app.js",
+    "/js/oneui.app.js": "/js/oneui.app.js",
+    "/js/custom.app.js": "/js/custom.app.js",
+    "/js/pages/tables_datatables.js": "/js/pages/tables_datatables.js",
+    "/css/custom.css": "/css/custom.css",
+    "/css/themes/amethyst.css": "/css/themes/amethyst.css",
+    "/css/oneui.css": "/css/oneui.css"
+}

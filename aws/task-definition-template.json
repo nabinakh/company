@@ -1,0 +1,122 @@
+{
+    "containerDefinitions": [
+        {
+            "portMappings": [{
+                "hostPort": 9000,
+                "protocol": "tcp",
+                "containerPort": 9000
+            }],
+            "environmentFiles": [
+              {
+                  "value": "${ENV_FILE}",
+                  "type": "s3"
+              }
+            ],
+            "memoryReservation": 128,
+            "image": "${IMAGE_NAME}",
+            "name": "app",
+            "mountPoints": [
+              {
+                "readOnly": false,
+                "containerPath": "/var/www/nginx/conf.d",
+                "sourceVolume": "nginx-config"
+              },
+              {
+                "readOnly": false,
+                "containerPath": "/var/www",
+                "sourceVolume": "www"
+              }
+            ],
+            "interactive": true,
+            "pseudoTerminal": true,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": [],
+                "options": {
+                    "awslogs-group": "${LOG_GROUP}",
+                    "awslogs-region": "${AWS_DEFAULT_REGION}",
+                    "awslogs-create-group": "true",
+                    "awslogs-stream-prefix": "app"
+                }
+            }
+        },
+        {
+            "portMappings": [{
+                "hostPort": 80,
+                "protocol": "tcp",
+                "containerPort": 80
+            }],
+            "memoryReservation": 128,
+            "image": "nginx:1.21",
+            "name": "${SERVICE_NAME}",
+            "mountPoints": [
+                {
+                  "readOnly": false,
+                  "containerPath": "/etc/nginx/conf.d/",
+                  "sourceVolume": "nginx-config"
+                },
+                {
+                  "readOnly": false,
+                  "containerPath": "/var/www",
+                  "sourceVolume": "www"
+                }
+            ],
+            "logConfiguration": {
+              "logDriver": "awslogs",
+              "secretOptions": [],
+              "options": {
+                  "awslogs-group": "${LOG_GROUP}",
+                  "awslogs-region": "${AWS_DEFAULT_REGION}",
+                  "awslogs-create-group": "true",
+                  "awslogs-stream-prefix": "nginx"
+              }
+          }
+        },
+        {
+          "environmentFiles": [
+            {
+                "value": "${ENV_FILE}",
+                "type": "s3"
+            }
+          ],
+          "command": [
+            "php",
+            "artisan",
+            "queue:work",
+            "--verbose",
+            "--tries=3",
+            "--timeout=90"
+          ],
+          "memoryReservation": 128,
+          "image": "${IMAGE_NAME}",
+          "name": "queue",
+          "interactive": true,
+          "pseudoTerminal": true,
+          "logConfiguration": {
+              "logDriver": "awslogs",
+              "secretOptions": [],
+              "options": {
+                  "awslogs-group": "${LOG_GROUP}",
+                  "awslogs-region": "${AWS_DEFAULT_REGION}",
+                  "awslogs-create-group": "true",
+                  "awslogs-stream-prefix": "queue"
+              }
+          }
+      }
+    ],
+    "cpu": "256",
+    "memory": "1024",
+    "family": "${STACK_NAME}",
+    "requiresCompatibilities": ["FARGATE"],
+    "taskRoleArn": "${EXECUTION_ROLE}",
+    "executionRoleArn": "${EXECUTION_ROLE}",
+    "networkMode": "awsvpc",
+    "volumes": [
+        {
+            "name": "nginx-config"
+        },
+        {
+            "name": "www"
+        }
+    ]
+  }

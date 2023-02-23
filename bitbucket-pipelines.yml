@@ -1,0 +1,47 @@
+image: atlassian/default-image:2
+
+definitions: 
+  services:
+    docker:
+      memory: 4096  # increment memory for docker-in-docker from 1GB to 2GB
+  steps: 
+    - step: &build-image-and-deploy
+        name: Build and publish docker image on ECR
+        size: 2x # Double resources available for this step.
+        image: atlassian/pipelines-awscli
+        caches:
+          - docker
+        services:
+          - docker # Enable Docker for your repository
+        script:
+          - echo $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION) > login.sh
+          - sh login.sh
+          - echo "MIX_APP_URL=$MIX_APP_URL" > .env
+          - docker build -f aws/Dockerfile -t $DOCKER_IMAGE_NAME:${BITBUCKET_COMMIT} .
+          - docker tag $DOCKER_IMAGE_NAME:${BITBUCKET_COMMIT} $DOCKER_ECR_REPO_URL/$DOCKER_IMAGE_NAME:${BITBUCKET_COMMIT}
+          - docker push $DOCKER_ECR_REPO_URL/$DOCKER_IMAGE_NAME:${BITBUCKET_COMMIT}
+          # Replace the docker image name in the task definition with the newly pushed image.
+          - export IMAGE_NAME="$DOCKER_ECR_REPO_URL/$DOCKER_IMAGE_NAME:${BITBUCKET_COMMIT}"
+          # Install envsubst command for replacing config files in system startup
+          - apk add gettext libintl
+          - envsubst < aws/task-definition-template.json > task-definition.json
+          # Update the task definition.
+          - pipe: atlassian/aws-ecs-deploy:1.5.0
+            variables:
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+              CLUSTER_NAME: $CLUSTER_NAME
+              SERVICE_NAME: "${STACK_NAME}-service"
+              TASK_DEFINITION: 'task-definition.json'
+
+pipelines:
+  branches:                      
+    nightly:
+      - step: 
+          <<: *build-image-and-deploy
+          deployment: nightly
+    prod:
+      - step: 
+          <<: *build-image-and-deploy
+          deployment: prod
