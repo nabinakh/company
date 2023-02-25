@@ -25,16 +25,17 @@ use Illuminate\Support\Facades\URL;
 
 // Example Routes
 
-Route::get('/', [App\Http\Controllers\Admin\LoginController::class, 'loginForm'])->name('admin.signin')->middleware('guest:admin');
-Route::post('/', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login')->middleware('guest:admin');
+Route::get('/', [App\Http\Controllers\Admin\LoginController::class, 'loginForm'])->name('admin.signin');
+Route::post('/', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
 Route::group(['prefix' => 'admin'], function () {
-// Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth']], function () {
         Route::view('/pages/datatables', 'pages.datatables');
         Route::view('/', 'dashboard')->name('admin.dashboard');
         Route::resource('/testomonial', App\Http\Controllers\Admin\TestomonialController::class);
         Route::resource('/team', App\Http\Controllers\Admin\TeamsController::class);
+        Route::resource('/team', App\Http\Controllers\Admin\ServiceController::class);
         Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
         Route::resource('participant', ParticipantController::class);
-    // });
+    });
 });
 

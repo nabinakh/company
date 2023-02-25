@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-  <title>ViviCattolica&amp; Contest</title>
+  <title>Techology&amp; Spot</title>
 
-  <meta name="description" content="ViviCattolica -  &amp; New prize competition section">
+  <meta name="description" content="TechnologySpot -  &amp;  a trusted GoTo Market Business & Brand Consulting, Experiential Design, and Digital Marketing Agency in Nepal.">
   <meta name="author" content="pixelcave">
   <meta name="robots" content="noindex, nofollow">
 

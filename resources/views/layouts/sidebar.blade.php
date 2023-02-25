@@ -7,7 +7,7 @@
           <span class="smini-visible">
             <i class="fa fa-circle-notch text-primary"></i>
           </span>
-          <span class="smini-hide fs-5 tracking-wider">Cattolica <span class="fw-normal">Contest</span></span>
+          <span class="smini-hide fs-5 tracking-wider">Technology <span class="fw-normal">Spot</span></span>
         </a>
         <!-- END Logo -->
 
@@ -78,7 +78,7 @@
 
             <li class="nav-main-item{{ request()->is('admin/team/*') ? ' open' : '' }}">
               <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
-                <i class="nav-main-link-icon si si-bulb"></i>
+                <i class="nav-main-link-icon fa fa-users"></i>
                 <span class="nav-main-link-name">Team</span>
               </a>
               <ul class="nav-main-submenu">
@@ -94,6 +94,26 @@
                 </li>
               </ul>
             </li>
+
+            <li class="nav-main-item{{ request()->is('admin/service/*') ? ' open' : '' }}">
+              <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                <i class="nav-main-link-icon fa fa-sitemap"></i>
+                <span class="nav-main-link-name">Service</span>
+              </a>
+              <ul class="nav-main-submenu">
+                <li class="nav-main-item">
+                  <a class="nav-main-link{{ request()->is('admin/team/service') ? ' active' : '' }}" href="{{ route('team.create')}}">
+                    <span class="nav-main-link-name">Add Service</span>
+                  </a>
+                </li>
+                <li class="nav-main-item">
+                  <a class="nav-main-link{{ request()->is('admin/service') ? ' active' : '' }}" href="{{ route('team.index')}}">
+                    <span class="nav-main-link-name">List Service</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            
           </ul>
         </div>
         <!-- END Side Navigation -->

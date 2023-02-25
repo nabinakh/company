@@ -19,9 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'surname',
-        'username',
-        'is_participant',
+        'email',
+        'password',
     ];
 
     /**
@@ -35,15 +34,6 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-
-    public function game_credits()
-    {
-        return $this->hasMany(GameCredit::class);
-    }
-
-    public function participant(){
-        return $this->hasOne(Participant::class);
-    }
 
     public function scopeLoggedInUser($query)
     {

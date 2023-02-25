@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class AdminSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,13 +16,13 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $admin = array(
+        $user = array(
             'name' => 'Admin',
-            'email' => 'admin@kotuko.it',
+            'email' => 'admin@technologyspot.it',
             'password' => Hash::make("admin@123"),
         );
-        if (Admin::where('email', $admin['email'])->count() <= 0) {
-            Admin::insert($admin);
+        if (User::where('email', $user['email'])->count() <= 0) {
+            User::insert($user);
         }
     }
 }

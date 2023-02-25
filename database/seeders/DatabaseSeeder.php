@@ -16,16 +16,7 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            AdminSeeder::class,
-            PhaseSeeder::class,
-            AgencyGroupSeeder::class,
-            PrizeListSeeder::class,
+            UserSeeder::class,
         ]);
-        if(config('app.env') === 'local' || config('app.env') === 'nightly') {
-            $this->call([
-                ParticipantSeeder::class,
-            ]);
-        }
-
     }
 }
