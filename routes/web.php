@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::view('/', 'dashboard')->name('admin.dashboard');
         Route::resource('/testomonial', App\Http\Controllers\Admin\TestomonialController::class);
         Route::resource('/team', App\Http\Controllers\Admin\TeamsController::class);
-        Route::resource('/team', App\Http\Controllers\Admin\ServiceController::class);
+        Route::resource('/service', App\Http\Controllers\Admin\ServiceController::class);
         Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
         Route::resource('participant', ParticipantController::class);
     });
