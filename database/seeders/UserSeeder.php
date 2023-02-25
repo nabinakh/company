@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     {
         $user = array(
             'name' => 'Admin',
-            'email' => 'admin@technologyspot.it',
+            'email' => 'admin@technologyspot.org',
             'password' => Hash::make("admin@123"),
         );
         if (User::where('email', $user['email'])->count() <= 0) {

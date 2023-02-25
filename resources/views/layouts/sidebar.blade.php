@@ -38,7 +38,7 @@
               </a>
             </li>
             <li class="nav-main-heading">Management</li>
-            <li class="nav-main-item{{ request()->is('admin/participant*') || request()->is('admin/participant*') ? ' open' : '' }}">
+            <!-- <li class="nav-main-item{{ request()->is('admin/participant*') || request()->is('admin/participant*') ? ' open' : '' }}">
               <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
                 <i class="nav-main-link-icon fa fa-users"></i>
                 <span class="nav-main-link-name">Participants</span>
@@ -55,7 +55,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
 
             <li class="nav-main-item{{ request()->is('admin/testomonial/*') ? ' open' : '' }}">
               <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
