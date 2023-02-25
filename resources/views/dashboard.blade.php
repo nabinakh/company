@@ -25,24 +25,4 @@
     </div>
   </div>
   <!-- END Hero -->
-
-  <!-- Page Content -->
-  <div class="content">
-    <div class="row items-push">
-      <div class="col-md-12">
-        <div class="block block-rounded h-100 mb-0">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">Welcome</h3>
-          </div>
-          <div class="block-content fs-sm text-muted">
-            <p>
-              Click here to import participants from excel file &nbsp &nbsp
-              <a href="{{ route('participant.create')}}" class="btn btn-sm btn-outline-secondary">Import Participants</a> 
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- END Page Content -->
 @endsection

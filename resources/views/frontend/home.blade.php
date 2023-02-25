@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
+    @yield('css')
+
   </head>
   <body>
     <!-- loading -->
@@ -36,15 +38,8 @@
 
  <div class="main-content">
  @yield('content')
-
-    <!-- Banner END -->
-    <!-- Main Content -->
-      <!-- Works -->
-    
-
     </div>
   
-
     @include('frontend.layouts.footer')
 
 
@@ -150,6 +145,8 @@
     }
     }); /*ready*/
     </script>
+           @yield('js')
+
   </body>
 
 <!-- Mirrored from templates.iqonic.design/markethon/layout-1/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2023 08:30:07 GMT -->

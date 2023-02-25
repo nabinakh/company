@@ -29,13 +29,12 @@ Route::get('/', [App\Http\Controllers\Admin\LoginController::class, 'loginForm']
 Route::post('/', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
 Route::group(['prefix' => 'admin'], function () {
 Route::group(['middleware' => ['auth']], function () {
-        Route::view('/', 'frontend/dashboard');
-        // Route::view('/', 'dashboard')->name('admin.dashboard');
+        // Route::view('/', 'frontend/dashboard');
+        Route::view('/', 'dashboard')->name('admin.dashboard');
         Route::resource('/testomonial', App\Http\Controllers\Admin\TestomonialController::class);
         Route::resource('/team', App\Http\Controllers\Admin\TeamsController::class);
         Route::resource('/service', App\Http\Controllers\Admin\ServiceController::class);
-        Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-        Route::resource('participant', ParticipantController::class);
+        Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
     });
 });
 
