@@ -34,7 +34,6 @@
 @include('frontend.layouts.header')
     <!-- Header END -->
     <!-- Banner -->
- @include('frontend.layouts.banner')
 
  <div class="main-content">
  @yield('content')

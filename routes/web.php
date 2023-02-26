@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 // Example Routes
 
-Route::get('/', [App\Http\Controllers\Admin\LoginController::class, 'loginForm'])->name('admin.signin');
-Route::post('/', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
+Route::get('/login', [App\Http\Controllers\Admin\LoginController::class, 'loginForm'])->name('admin.signin');
+Route::post('/login', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
 Route::group(['prefix' => 'admin'], function () {
 Route::group(['middleware' => ['auth']], function () {
         Route::view('/fe', 'frontend/dashboard');
@@ -28,4 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
     });
 });
+
+Route::view('/', 'frontend/dashboard');
+Route::get('/teams', [App\Http\Controllers\Frontend\TeamController::class, 'index'])->name('teams');
 

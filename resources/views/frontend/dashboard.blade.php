@@ -1,5 +1,7 @@
 @extends('frontend/home')
 @section('content')
+@include('frontend.layouts.banner')
+
 <section class="iq-works main-bg position-relative">
         <div class="container">
           <div class="row">

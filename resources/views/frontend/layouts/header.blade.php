@@ -28,7 +28,7 @@
                 <ul class="menu-links">
                <li>    <a href="javascript:void(0)" class="active">Home</a></li>
                <li><a href="team.html"> Abour Us</a></li>
-                  <li><a href="team.html">Team</a></li>
+                  <li><a href="{{route('teams')}}">Team</a></li>
                   <li><a href="team.html">Services</a></li>
                   <li><a href="team.html">Contact Us</a></li>
                 </ul>

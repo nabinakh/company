@@ -25,7 +25,8 @@ class TeamRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // required only if create
+            'image' => $this->method() == 'POST' ? 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048' : 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'designation' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'status' => 'nullable|in:active,inactive',

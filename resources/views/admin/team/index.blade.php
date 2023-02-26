@@ -1,8 +1,4 @@
 @extends('layouts.backend')
-@section('css_after')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
-@endsection
-
 @section('content')
 
 <div class="content">
@@ -24,6 +20,7 @@
                         <th>Company</th>
                         <th>Designation</th>
                         <th>Description</th>
+                        <th>Image</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -62,6 +59,11 @@
                 },
                 {
                     "data": "description"
+                },
+                {"data":'image',
+                "render": function ( data) {
+                    return '<img src="'+data+'" width="100px" height="100px" />';
+                }
                 },
                 {
                     "data": "action"
