@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\ContactRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -33,9 +35,16 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactRequest $request)
     {
-        //
+
+        $validated = $request->validated();
+        $status = Contact::create($validated);
+        if ($status) {
+            return redirect()->route('contact')->with('success', 'Contact created successfully');
+        } else {
+            return back()->with('error', 'Something went wrong, please try again');
+        }
     }
 
     /**

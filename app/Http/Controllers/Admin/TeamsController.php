@@ -26,7 +26,8 @@ class TeamsController extends Controller
                 ->addColumn('name', function ($row) {
                     return "<p>{$row['name']}</p>";
                 })->addColumn('image', function ($row) {
-                    return "<p>{$row['image']}</p>";
+                    $image = asset('images/'.$row['image']);
+                    return $image;
                 })->addColumn('designation', function ($row) {
                     return "<p>{$row['designation']}</p>";
                 })
@@ -36,7 +37,8 @@ class TeamsController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<div class="d-flex">';
-                    $btn .= view('layouts.deleteBtn', ['route' => route('testomonial.destroy', $row['id'])])->render();
+                    $btn .= view('layouts.editBtn', ['route' => route('team.edit', $row['id'])])->render();
+                    $btn .= view('layouts.deleteBtn', ['route' => route('team.destroy', $row['id'])])->render();
                     $btn .= '</div>';
                     return $btn;
                 })
@@ -102,7 +104,8 @@ class TeamsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Team::find($id);
+        return view('admin.team.create', compact('data'));
     }
 
     /**
@@ -112,9 +115,21 @@ class TeamsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TeamRequest $request, $id)
     {
-        //
+        $validated = $request->validated();
+        if($request->image){
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+            $image->move($destinationPath, $name);
+            $validated['image'] = $name;
+        }
+        $status = Team::where('id', $id)->update($validated);
+        if(!$status){
+            return back()->with('error', 'Something went wrong, please try again');
+        }
+        return back()->with('success', 'Team updated successfully');
     }
 
     /**
