@@ -1,16 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\ExportParticipantController;
-use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\Admin\ParticipantController;
-use App\Http\Controllers\Admin\PhaseController;
-use App\Http\Controllers\Admin\PrizeController;
-use App\Http\Controllers\Admin\UserLogController;
-use App\Http\Controllers\StreamController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +20,7 @@ Route::get('/', [App\Http\Controllers\Admin\LoginController::class, 'loginForm']
 Route::post('/', [App\Http\Controllers\Admin\LoginController::class, 'login'])->name('admin.login');
 Route::group(['prefix' => 'admin'], function () {
 Route::group(['middleware' => ['auth']], function () {
-        // Route::view('/', 'frontend/dashboard');
+        Route::view('/fe', 'frontend/dashboard');
         Route::view('/', 'dashboard')->name('admin.dashboard');
         Route::resource('/testomonial', App\Http\Controllers\Admin\TestomonialController::class);
         Route::resource('/team', App\Http\Controllers\Admin\TeamsController::class);
